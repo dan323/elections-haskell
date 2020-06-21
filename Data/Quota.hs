@@ -1,4 +1,4 @@
-module Data.Quota (applyQuota, Quota, Remainder) where
+module Data.Quota (applyQuota, applyQuo, Quota, Remainder) where
 
 import qualified Data.Map as M
 import Data.List
@@ -50,5 +50,5 @@ applyQuota e q r v = if allocated == fromInteger e
                      else secondStep
     where
         (allocation,votes) = applyQuo e q v
-        allocated = M.foldr (+) 0 v
-        secondStep = applyRem e r votes allocation
+        allocated = M.foldr (+) 0 allocation
+        secondStep = applyRem (e - allocated) r votes allocation

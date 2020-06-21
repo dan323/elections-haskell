@@ -27,9 +27,9 @@ applyDiv e d votes = applyDivAux 0 votesInit M.empty
             | act == e = sol
             | otherwise = applyDivAux (act+1) updatedVotes updatedSol
             where
-                winner = (minimum . map fst . filter (\(k,val) -> val == maxValue) . M.toList) v
+                winner = (minimum . map fst . filter (\(_,val) -> val == maxValue) . M.toList) v
                 maxValue = (snd . maximumBy comp . M.toList) v
                 updatedSol = M.insertWith (+) winner 1 sol
                 updatedVotes = M.insert winner (fromInteger (votes M.! winner)/d (updatedSol M.! winner)) v
-                comp (k1,v1) (k2,v2) = compare v1 v2
+                comp (_,v1) (_,v2) = compare v1 v2
         votesInit = M.fromList [(k,fromInteger (votes M.! k) / d 0)| k<-parties]
