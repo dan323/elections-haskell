@@ -19,7 +19,7 @@ applyQuo :: RealFloat a => Ord k =>
 applyQuo e q votes = (result, remainders)
     where
         parties = M.keys votes
-        quota = q e (M.foldr (+) 0 votes)
+        quota = q (M.foldr (+) 0 votes) e
         result = M.fromList [(k,floor (fromInteger (votes M.! k)/quota))| k<- parties]
         remainders = M.fromList [(k, fromInteger (votes M.! k) - fromInteger (result M.! k) * quota)| k<- parties]
 
@@ -29,11 +29,8 @@ applyRem :: RealFloat a => Ord k =>
          -> M.Map k a         -- ^ map of votes remaining
          -> M.Map k Integer   -- ^ map of quota result
          -> M.Map k Integer   -- ^ partition
-applyRem e r v a = if allocated == fromInteger e
-                   then a
-                   else applyRemAux a selected
+applyRem e r v a = applyRemAux a selected
     where
-        allocated = M.foldr (+) 0 v
         parties = M.keys v
         lst = [(k, v M.! k, a M.! k)| k<-parties]
         selected = genericTake e (r lst)

@@ -1,0 +1,19 @@
+name: CI
+on: [push, pull_request]
+
+jobs:
+  build-ghc:
+    runs-on: ubuntu-18.04
+    steps:
+    - uses: actions/checkout@master
+    - uses: actions/setup-haskell@v1
+      with:
+        ghc-version: '8.8.3' # Exact version of ghc to use
+        cabal-version: '3.0'
+    - run: wget https://github.com/ndmitchell/hlint/releases/download/v2.2.4/hlint-2.2.4-x86_64-linux.tar.gz
+    - run: tar fvx hlint-2.2.4-x86_64-linux.tar.gz
+    - run: wget https://github.com/jaspervdj/stylish-haskell/releases/download/v0.9.4.4/stylish-haskell-v0.9.4.4-linux-x86_64.tar.gz
+    - run: tar fvx stylish-haskell-v0.9.4.4-linux-x86_64.tar.gz
+    - run: runghc -Wall -Werror Data/Divisor.hs Data/Quota.hs Data/Divisor/Provided.hs Data/Quota/Provided.hs
+    - run: ./hlint-2.2.4/hlint Data/Divisor.hs Data/Quota.hs Data/Divisor/Provided.hs Data/Quota/Provided.hs
+    - run: diff -u Main.hs <(./stylish-haskell-v0.9.4.4-linux-x86_64/stylish-haskell Data/Divisor.hs Data/Quota.hs Data/Divisor/Provided.hs Data/Quota/Provided.hs)
