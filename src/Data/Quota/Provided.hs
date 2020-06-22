@@ -15,7 +15,7 @@ winnerAll = repeat . first . maximumBy comparation
 comparation :: Ord k => Ord a => (k,a,Integer) -> (k,a,Integer) -> Ordering
 comparation (k1,x,_) (k2,y,_) = if x == y
                                 then compare k1 k2
-                                else compare x y
+                                else compare y x
 
 first :: (a,b,c) -> a
 first (x,_,_) = x

@@ -1,4 +1,4 @@
-module Data.Quota (applyQuota, applyQuo, Quota, Remainder) where
+module Data.Quota (applyQuota, applyQuo, applyRem, Quota, Remainder) where
 
 import qualified Data.Map as M
 import Data.List
