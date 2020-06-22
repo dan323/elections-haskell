@@ -1,4 +1,5 @@
-module Data.Quota.Provided(hare,droop,winnerAll,largestRemainder) where
+{-# LANGUAGE ExplicitForAll #-}
+module Data.Quota.Provided(hare, droop, winnerAll, largestRemainder) where
 
 import Data.Quota
 import Data.List

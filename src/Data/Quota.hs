@@ -1,13 +1,14 @@
-module Data.Quota (applyQuota, applyQuo, applyRem, Quota, Remainder) where
+{-# LANGUAGE ExplicitForAll #-}
+module Data.Quota (applyQuota, Quota, Remainder) where
 
-import qualified Data.Map as M
-import Data.List
+import           Data.List
+import qualified Data.Map  as M
 
 -- | A quota computes a 'RealFloat' from the total number of votes and the total
 -- number of seats to partition
 type Quota a = Integer -> Integer -> a
 
--- | A remainder sorts the parties following some rule using the number of votes remaining and 
+-- | A remainder sorts the parties following some rule using the number of votes remaining and
 -- the number of seats already allocated by each party
 type Remainder a k = [(k,a,Integer)] -> [k]
 
@@ -34,7 +35,7 @@ applyRem e r v a = applyRemAux a selected
         parties = M.keys v
         lst = [(k, v M.! k, a M.! k)| k<-parties]
         selected = genericTake e (r lst)
-        applyRemAux sol [] = sol 
+        applyRemAux sol []     = sol
         applyRemAux sol (x:xs) = applyRemAux (M.insertWith (+) x 1 sol) xs
 
 -- | We allocate some seats given the 'Quota' method

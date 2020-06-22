@@ -1,4 +1,5 @@
-module Data.Divisor.Provided(adam,hill,dean,jefferson,saintL) where
+{-# LANGUAGE ExplicitForAll #-}
+module Data.Divisor.Provided(adam, hill, dean, jefferson, saintL) where
 
 import Data.Divisor
 

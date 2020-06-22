@@ -1,7 +1,8 @@
-module Data.Divisor (applyDiv,Divisor) where
+{-# LANGUAGE ExplicitForAll #-}
+module Data.Divisor (applyDiv, Divisor) where
 
-import qualified Data.Map as M
-import Data.List
+import           Data.List
+import qualified Data.Map  as M
 
 -- | A divisor is a function f : Nat -> Real
 -- such that n > m -> (f n) > (f m)
@@ -15,7 +16,7 @@ type Divisor a = Integer -> a
 -- >>> applyDiv 5 fromInteger (M.fromList [("BA",5),("B",5),("C",5),("D",5)])
 --
 -- prop> sum (values (applyDiv n div votes)) == n
-applyDiv :: RealFloat a => Ord k =>      
+applyDiv :: RealFloat a => Ord k =>
             Integer              -- ^ number of seats to partition
          -> Divisor a            -- ^ method to use
          -> M.Map k Integer -- ^ map of votes
