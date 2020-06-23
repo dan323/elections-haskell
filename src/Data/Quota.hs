@@ -12,6 +12,7 @@ type Quota a = Integer -> Integer -> a
 -- the number of seats already allocated by each party
 type Remainder a k = [(k,a,Integer)] -> [k]
 
+-- | Apply the first step of the quota method
 applyQuo :: RealFloat a => Ord k =>
             Integer                         -- ^ number of seats to partition
          -> Quota a                         -- ^ method to use
@@ -24,6 +25,7 @@ applyQuo e q votes = (result, remainders)
         result = M.fromList [(k,floor (fromInteger (votes M.! k)/quota))| k<- parties]
         remainders = M.fromList [(k, fromInteger (votes M.! k) - fromInteger (result M.! k) * quota)| k<- parties]
 
+-- | Apply the second step of the quota method
 applyRem :: RealFloat a => Ord k =>
             Integer           -- ^ number of seats to partition
          -> Remainder a k     -- ^ method to use

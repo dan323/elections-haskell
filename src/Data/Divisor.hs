@@ -4,23 +4,25 @@ module Data.Divisor (applyDiv, Divisor) where
 import           Data.List
 import qualified Data.Map  as M
 
--- | A divisor is a function f : Nat -> Real
--- such that n > m -> (f n) > (f m)
+-- | A divisor is a sctrictly increasing function $f : Nat -> Real$;
+-- i.e. that n > m -> (f n) > (f m)
 type Divisor a = Integer -> a
 
 -- | This function is the main function that computes the solution to the partition
 -- problem for a given 'Divisor' method
 --
 -- >>> applyDiv 4 fromInteger (M.fromList [("A",5),("B",2),("C",6),("D",7)])
---
+-- M.fromList [("A",1),("B",1),("C",1),("D",1)]
+-- 
 -- >>> applyDiv 5 fromInteger (M.fromList [("BA",5),("B",5),("C",5),("D",5)])
+-- M.fromList [("B",2),("BA",1),("C",1),("D",1)]
 --
 -- prop> sum (values (applyDiv n div votes)) == n
 applyDiv :: RealFloat a => Ord k =>
-            Integer              -- ^ number of seats to partition
-         -> Divisor a            -- ^ method to use
-         -> M.Map k Integer -- ^ map of votes
-         -> M.Map k Integer -- ^ partition
+            Integer                 -- ^ number of seats to partition
+         -> Divisor a               -- ^ method to use
+         -> M.Map k Integer         -- ^ map of votes
+         -> M.Map k Integer         -- ^ partition
 applyDiv e d votes = applyDivAux 0 votesInit M.empty
     where
         parties = M.keys votes
