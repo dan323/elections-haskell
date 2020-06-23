@@ -13,7 +13,7 @@ type Divisor a = Integer -> a
 --
 -- >>> applyDiv 4 fromInteger (M.fromList [("A",5),("B",2),("C",6),("D",7)])
 -- M.fromList [("A",1),("B",1),("C",1),("D",1)]
--- 
+--
 -- >>> applyDiv 5 fromInteger (M.fromList [("BA",5),("B",5),("C",5),("D",5)])
 -- M.fromList [("B",2),("BA",1),("C",1),("D",1)]
 --
