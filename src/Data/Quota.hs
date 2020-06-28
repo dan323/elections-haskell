@@ -6,7 +6,7 @@ import qualified Data.Map  as M
 
 -- | A quota computes a 'RealFloat' from the total number of votes and the total
 -- number of seats to partition
-type Quota a = Integer -> Integer -> a
+type Quota a = a -> Integer -> a
 
 -- | A remainder sorts the parties following some rule using the number of votes remaining and
 -- the number of seats already allocated by each party
@@ -21,7 +21,7 @@ applyQuo :: RealFloat a => Ord k =>
 applyQuo e q votes = (result, remainders)
     where
         parties = M.keys votes
-        quota = q (M.foldr (+) 0 votes) e
+        quota = q (M.foldr (\x y -> fromInteger x +y) 0 votes) e
         result = M.fromList [(k,floor (fromInteger (votes M.! k)/quota))| k<- parties]
         remainders = M.fromList [(k, fromInteger (votes M.! k) - fromInteger (result M.! k) * quota)| k<- parties]
 

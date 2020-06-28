@@ -5,10 +5,10 @@ import Data.Quota
 import Data.List
 
 hare :: RealFloat a => Quota a
-hare votes seats = fromInteger votes / fromInteger seats
+hare votes seats = votes / fromInteger seats
 
 droop :: RealFloat a => Quota a
-droop votes seats = (fromInteger votes / (fromInteger seats + 1)) + 1
+droop votes seats = (votes / (fromInteger seats + 1)) + 1
 
 winnerAll :: RealFloat a => Ord k => Remainder a k
 winnerAll = repeat . first . maximumBy comparation

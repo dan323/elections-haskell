@@ -8,9 +8,9 @@ jobs:
     - uses: actions/checkout@master
     - uses: actions/setup-haskell@v1
       with:
-        ghc-version: '8.8.3' # Exact version of ghc to use
+        ghc-version: '8.10.1' # Exact version of ghc to use
         cabal-version: '3.0'
-    - run: cabal run test-suit
+    - run: cabal test
     - run: wget https://github.com/ndmitchell/hlint/releases/download/v2.2.4/hlint-2.2.4-x86_64-linux.tar.gz
     - run: tar fvx hlint-2.2.4-x86_64-linux.tar.gz
     - run: wget https://github.com/jaspervdj/stylish-haskell/releases/download/v0.9.4.4/stylish-haskell-v0.9.4.4-linux-x86_64.tar.gz
