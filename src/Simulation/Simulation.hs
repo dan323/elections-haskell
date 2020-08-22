@@ -2,8 +2,8 @@
 module Simulation.Simulation (Simulation, simulateDiv, simulateQuot) where
 
 import           Data.Divisor
+import qualified Data.Map     as M
 import           Data.Quota
-import qualified Data.Map as M
 
 type Simulation k = [k] -> M.Map k Integer
 
@@ -20,6 +20,6 @@ simulateQuot :: RealFloat a => Ord k =>
                 Simulation k ->
                 Quota a ->
                 Remainder a k ->
-                Integer -> 
+                Integer ->
                 (M.Map k Integer, M.Map k Integer)
 simulateQuot lst s q r e = (s lst, applyQuota e q r (s lst))
