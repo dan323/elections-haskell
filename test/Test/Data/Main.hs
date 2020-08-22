@@ -10,13 +10,13 @@ import qualified Data.Map as M
 
 applyDivStDo :: Integer              -- ^ number of seats to partition
          -> Divisor Double           -- ^ method to use
-         -> M.Map String Integer -- ^ map of votes
+         -> M.Map String Integer     -- ^ map of votes
          -> M.Map String Integer
 applyDivStDo = applyDiv
 
-applyQuotaStDo :: Integer              -- ^ number of seats to partition
-               -> Quota Double             -- ^ quota method to use
-               -> Remainder Double String        -- ^ remainder method to use
+applyQuotaStDo :: Integer                   -- ^ number of seats to partition
+               -> Quota Double              -- ^ quota method to use
+               -> Remainder Double String   -- ^ remainder method to use
                -> M.Map String Integer      -- ^ map of votes
                -> M.Map String Integer
 applyQuotaStDo = applyQuota

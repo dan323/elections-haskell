@@ -16,4 +16,6 @@ jobs:
     - run: wget https://github.com/jaspervdj/stylish-haskell/releases/download/v0.9.4.4/stylish-haskell-v0.9.4.4-linux-x86_64.tar.gz
     - run: tar fvx stylish-haskell-v0.9.4.4-linux-x86_64.tar.gz
     - run: ./hlint-2.2.4/hlint src/Data/Divisor.hs src/Data/Quota.hs src/Data/Divisor/Provided.hs src/Data/Quota/Provided.hs
+    - run: ./hlint-2.2.4/hlint src/Simulation/Simulation.hs src/Simulation/Provided.hs
     - run: for file in src/Data/*.hs; do diff -u "$file" <(./stylish-haskell-v0.9.4.4-linux-x86_64/stylish-haskell "$file"); done
+    - run: for file in src/Simultaion/*.hs; do diff -u "$file" <(./stylish-haskell-v0.9.4.4-linux-x86_64/stylish-haskell "$file"); done
