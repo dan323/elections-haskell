@@ -3,7 +3,7 @@ module Simulation.Provided (limitSim, fixedSim) where
 
 import           Simulation.Simulation
 
-import qualified Data.Map             as M
+import qualified Data.Map              as M
 import           System.Random
 
 limitSim :: Ord k => Int -> Integer -> Integer -> Simulation k
