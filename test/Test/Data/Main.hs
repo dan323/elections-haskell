@@ -4,6 +4,7 @@ import Data.Divisor
 import Data.Divisor.Provided
 import Data.Quota
 import Data.Quota.Provided
+import Data.Votes
 
 import Test.HUnit
 import qualified Data.Map as M
@@ -12,14 +13,14 @@ applyDivStDo :: Integer              -- ^ number of seats to partition
          -> Divisor Double           -- ^ method to use
          -> M.Map String Integer     -- ^ map of votes
          -> M.Map String Integer
-applyDivStDo = applyDiv
+applyDivStDo e d v = getResult (applyDiv e d (Votes v))
 
 applyQuotaStDo :: Integer                   -- ^ number of seats to partition
                -> Quota Double              -- ^ quota method to use
                -> Remainder Double String   -- ^ remainder method to use
                -> M.Map String Integer      -- ^ map of votes
                -> M.Map String Integer
-applyQuotaStDo = applyQuota
+applyQuotaStDo e q r v = getResult (applyQuota e q r (Votes v))
 
 testAdam :: Test
 testAdam = TestCase $ assertEqual "Adam small" (M.fromList [("A",1),("B",1)]) (applyDivStDo 2 adam (M.fromList [("A",100),("B",1)]))

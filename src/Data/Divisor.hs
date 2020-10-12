@@ -2,6 +2,7 @@
 module Data.Divisor (applyDiv, Divisor) where
 
 import           Data.List
+import           Data.Votes
 import qualified Data.Map  as M
 
 -- | A divisor is a sctrictly increasing function $f : Nat -> Real$;
@@ -21,18 +22,21 @@ type Divisor a = Integer -> a
 applyDiv :: RealFloat a => Ord k =>
             Integer                 -- ^ number of seats to partition
          -> Divisor a               -- ^ method to use
-         -> M.Map k Integer         -- ^ map of votes
-         -> M.Map k Integer         -- ^ partition
-applyDiv e d votes = applyDivAux 0 votesInit M.empty
+         -> Votes k Integer         -- ^ map of votes
+         -> Result k Integer         -- ^ partition
+applyDiv e d v = applyDivAux 0 votesInit (Result M.empty)
     where
+        votes = getVotes v
         parties = M.keys votes
-        applyDivAux act v sol
+        applyDivAux act vot sol
             | act == e = sol
-            | otherwise = applyDivAux (act+1) updatedVotes updatedSol
+            | otherwise = applyDivAux (act+1) updatedVotes (Result updatedSol)
             where
-                winner = (minimum . map fst . filter (\(_,val) -> val == maxValue) . M.toList) v
-                maxValue = (snd . maximumBy comp . M.toList) v
-                updatedSol = M.insertWith (+) winner 1 sol
-                updatedVotes = M.insert winner (fromInteger (votes M.! winner)/d (updatedSol M.! winner)) v
+                w = getVotes vot
+                winner = (minimum . map fst . filter (\(_,val) -> val == maxValue) . M.toList) w
+                maxValue = (snd . maximumBy comp . M.toList) w
+                updatedSol = M.insertWith (+) winner 1 (getResult sol)
+                nextValue = fromInteger (votes M.! winner)/d (updatedSol M.! winner)
+                updatedVotes = (Votes . M.insert winner nextValue) w
                 comp (_,v1) (_,v2) = compare v1 v2
-        votesInit = M.fromList [(k,fromInteger (votes M.! k) / d 0)| k<-parties]
+        votesInit = (Votes . M.fromList) [(k,fromInteger (votes M.! k) / d 0)| k<-parties]

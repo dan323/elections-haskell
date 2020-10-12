@@ -24,7 +24,8 @@ library elect-sys
                        containers >=0.6.2,
                        random >=1.1
   hs-source-dirs:      src
-  exposed-modules:     Data.Divisor
+  exposed-modules:     Data.Votes
+                       Data.Divisor
                        Data.Quota
                        Data.Divisor.Provided
                        Data.Quota.Provided
@@ -36,10 +37,11 @@ test-suite test-data
   Type:                exitcode-stdio-1.0
   main-is:             Test/Data/Main.hs
   build-depends:       base >=4.12.0.0,
-                       containers >=0.6.2
-  build-depends:       HUnit >= 1.6.0
+                       containers >=0.6.2,
+                       HUnit >= 1.6.0
   hs-source-dirs:      test, src
-  other-modules:       Data.Divisor
+  other-modules:       Data.Votes
+                       Data.Divisor
                        Data.Quota
                        Data.Divisor.Provided
                        Data.Quota.Provided
@@ -50,10 +52,11 @@ test-suite test-sim
   main-is:             Test/Sim/Main.hs
   build-depends:       base >=4.12.0.0,
                        containers >=0.6.2,
-                       random >=1.1
-  build-depends:       HUnit >= 1.6.0
+                       random >=1.1,
+                       HUnit >= 1.6.0
   hs-source-dirs:      test, src
-  other-modules:       Data.Divisor
+  other-modules:       Data.Votes
+                       Data.Divisor
                        Data.Quota
                        Data.Divisor.Provided
                        Data.Quota.Provided
