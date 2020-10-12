@@ -2,8 +2,8 @@
 module Data.Quota (applyQuota, Quota, Remainder) where
 
 import           Data.List
+import qualified Data.Map   as M
 import           Data.Votes
-import qualified Data.Map  as M
 
 -- | A quota computes a 'RealFloat' from the total number of votes and the total
 -- number of seats to partition
