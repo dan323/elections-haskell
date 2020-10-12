@@ -2,10 +2,10 @@
 module Data.Divisor (applyDiv, Divisor) where
 
 import           Data.List
+import qualified Data.Map   as M
 import           Data.Votes
-import qualified Data.Map  as M
 
--- | A divisor is a sctrictly increasing function $f : Nat -> Real$;
+-- | A divisor is a sctrictly increasing sequence of real numbers;
 -- i.e. that n > m -> (f n) > (f m)
 type Divisor a = Integer -> a
 
